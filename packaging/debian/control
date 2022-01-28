@@ -1,13 +1,12 @@
 Source: libzt
-Section: contrib/games
+Section: libs
 Priority: optional
-Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Maintainer: Adam Ierymenko <adam.ierymenko@zerotier.com>
+Uploaders: Goran Vidovic (gogo) <trebelnik2@gmail.com>
 Build-Depends:
 	debhelper,
 	cmake,
-#	git,
-	g++,
-#	tree
+	g++
 Standards-Version: 4.3.0
 Homepage: https://github.com/zerotier/libzt
 Vcs-Git: git@github.com:zerotier/libzt.git
