@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# https://github.com/zerotier/libzt/blob/master/build.sh
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+export COMPILE_FLAGS="-O0"
+export DEB_BUILD_MAINT_OPTIONS = hardening=-all
+export DEB_CFLAGS_MAINT_APPEND  = -Wno-error
+#export DEB_CFLAGS_MAINT_APPEND  = -Wno-error -march=armv8-a+crypto
+export DEB_LDFLAGS_MAINT_APPEND = -Wno-error
+export DEB_BUILD_OPTIONS += noautodbgsym
+#export DEB_LDFLAGS_MAINT_APPEND  = -Wno-error -march=armv8-a+crypto
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+%:
+	dh $@ --buildsystem=cmake --builddirectory=obj-${DEB_HOST_MULTIARCH}
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DCMAKE_BUILD_TYPE=release \
+		-DBUILD_HOST=True
+
+override_dh_auto_install:
+	DESTDIR=$$(pwd)/debian/libzt cmake --install ./obj-${DEB_HOST_MULTIARCH}
+	cp -fr $$(pwd)/obj-${DEB_HOST_MULTIARCH}/bin $$(pwd)/debian/libzt/usr/bin
+	dh_auto_install
+	rm -f $$(pwd)/debian/libzt/usr/lib/libzt.a

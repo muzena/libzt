@@ -1,0 +1,24 @@
+Source: libzt
+Section: contrib/games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Build-Depends:
+	debhelper,
+	cmake,
+#	git,
+	g++,
+#	tree
+Standards-Version: 4.3.0
+Homepage: https://github.com/zerotier/libzt
+Vcs-Git: git@github.com:zerotier/libzt.git
+Vcs-Browser: https://github.com/zerotier/libzt.git
+
+Package: libzt
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: ZeroTier Sockets
+ Peer-to-peer and cross-platform encrypted connections built right into your app or service
+ No drivers, no root, and no host configuration.
+
